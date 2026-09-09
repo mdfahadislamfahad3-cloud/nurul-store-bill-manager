@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nurul Store Bill</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--green:#087f5b;--green2:#0ca678;--bg:#f3f7f5;--white:#fff;--text:#18221e;--muted:#718079;--border:#dfe8e3;--red:#d93636;--orange:#c77700;--blue:#2864bd;--purple:#7452b5;--shadow:0 3px 14px rgba(0,0,0,.06)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans Bengali","SolaimanLipi",sans-serif}
+button,input{font-family:inherit}button{cursor:pointer}
+.header{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:18px 15px;border-radius:0 0 24px 24px;box-shadow:0 5px 18px rgba(0,0,0,.12)}
+.header-inner{max-width:780px;margin:auto;display:flex;align-items:center;gap:12px}
+.logo{width:50px;height:50px;border-radius:15px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:27px}
+.header h1{margin:0;font-size:21px}.header p{margin:3px 0 0;font-size:12px;opacity:.92}
+.container{max-width:780px;margin:auto;padding:13px;padding-bottom:80px}
+.month-card,.stat,.type-card,.customer,.search,.tabs{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow)}
+.month-card{border-radius:16px;padding:12px;margin-bottom:12px}.month-title{font-size:12px;color:var(--muted);margin-bottom:7px}
+.month-card input{width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:#fafcfb;font-size:16px;outline:none}
+.dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}.stat{border-radius:16px;padding:11px 4px;text-align:center}.stat-icon{font-size:22px}.stat-number{font-size:23px;font-weight:800;margin-top:2px}.stat-title{color:var(--muted);font-size:10px;margin-top:3px}.total .stat-number{color:var(--blue)}.paid .stat-number{color:#14863f}.unpaid .stat-number{color:var(--red)}
+.customer-type{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.type-card{border-radius:14px;padding:10px 4px;text-align:center;cursor:pointer}.type-number{font-size:19px;font-weight:800}.type-title{color:var(--muted);font-size:10px;margin-top:2px}.regular .type-number{color:#14863f}.irregular .type-number{color:var(--orange)}.new .type-number{color:var(--purple)}
+.reminder{background:#fff5dc;border:1px solid #efd18a;border-radius:16px;padding:13px;margin-bottom:12px;box-shadow:var(--shadow)}.reminder-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.reminder-title{font-weight:800;color:#8b5900}.reminder-sub{font-size:11px;color:#856c3d;margin-top:4px}.reminder-count{min-width:32px;height:32px;padding:0 9px;border-radius:20px;background:#d98200;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold}.reminder-list{margin-top:9px}.reminder-item{background:#fff;border:1px solid #ead9ae;border-radius:11px;padding:9px;margin-top:7px;display:flex;align-items:center;justify-content:space-between;gap:8px}.reminder-name{font-size:13px;font-weight:bold}.reminder-info{font-size:10px;color:var(--muted);margin-top:2px}.reminder-buttons{display:flex;gap:5px;align-items:center}.sms-small,.sms-done-small,.sms-back-small,.copy-small{border:0;border-radius:9px;padding:9px 8px;font-size:10px;font-weight:bold;white-space:nowrap}.sms-small{background:#e5efff;color:#245aa4}.sms-done-small{background:#def5e5;color:#147636}.sms-back-small{background:#fff0cf;color:#8b5900}.copy-small{background:#eee6ff;color:#65419f}
+.sent-section{margin-top:12px;border-top:1px solid #ead9ae;padding-top:10px}.sent-title{font-size:12px;font-weight:800;color:#147636;margin-bottom:6px}.sent-item{background:#f5fff8;border:1px solid #cfe8d7;border-radius:11px;padding:9px;margin-top:7px;display:flex;align-items:center;justify-content:space-between;gap:8px}.sent-name{font-size:13px;font-weight:bold}.sent-info{font-size:10px;color:var(--muted);margin-top:2px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.action{border:0;border-radius:12px;padding:12px 6px;font-weight:bold;font-size:12px}.add{background:var(--green);color:#fff}.backup{background:#e2f5ed;color:#076c4d}.restore{background:#e7eeff;color:#315aa2}.excel{background:#fff0ca;color:#865900}.trash{background:#ffe6e6;color:#b52d2d}.trash-item{background:#fff;border:1px solid #ead5d5;border-radius:12px;padding:10px;margin-top:8px}.trash-name{font-weight:800;font-size:14px}.trash-info{font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px}.trash-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.restore-one{border:0;border-radius:9px;padding:9px;background:#def5e5;color:#147636;font-weight:bold}.permanent-delete{border:0;border-radius:9px;padding:9px;background:#ffe1e1;color:#b52d2d;font-weight:bold}
+.search{border-radius:14px;padding:4px 11px;margin-bottom:10px}.search input{width:100%;border:0;outline:0;background:transparent;padding:9px 2px;font-size:14px}.tabs{display:flex;border-radius:13px;padding:4px;margin-bottom:11px;overflow-x:auto}.tab{flex:1;min-width:65px;border:0;background:transparent;color:var(--muted);padding:10px 4px;border-radius:9px;font-size:12px;font-weight:bold}.tab.active{background:var(--green);color:#fff}
+.customer{border-radius:16px;padding:13px;margin-bottom:9px}.customer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.customer-name{font-size:16px;font-weight:800}.customer-number{color:var(--muted);font-size:11px;margin-top:3px}.type-badge{padding:5px 8px;border-radius:15px;font-size:10px;font-weight:bold;white-space:nowrap}.badge-regular{background:#def5e5;color:#117633}.badge-irregular{background:#fff0cf;color:#986000}.badge-new{background:#eee6ff;color:#65419f}.info{font-size:12px;line-height:1.85;margin-top:8px}.status{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold;margin-top:7px}.status-paid{color:#117633;background:#def5e5}.status-unpaid{color:#c42c2c;background:#ffe4e4}.status-overdue{color:#9a6200;background:#fff0cf}.card-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.card-buttons button{border:0;border-radius:8px;padding:9px 3px;font-size:10px;font-weight:bold}.pay{background:#e0f6e7;color:#147636}.sms{background:#e6efff;color:#245aa4}.edit{background:#edf0f2;color:#39444a}.delete{background:#ffe6e6;color:#c62c2c}.history{border-top:1px solid var(--border);margin-top:10px;padding-top:9px}.history-title{font-size:12px;font-weight:bold;margin-bottom:5px}.history-item{display:flex;justify-content:space-between;padding:6px 0;font-size:11px;border-bottom:1px solid #f0f3f1}.empty{background:#fff;border:1px dashed #cbd6d1;border-radius:15px;padding:35px 10px;text-align:center;color:var(--muted)}.empty-icon{font-size:37px;margin-bottom:7px}
+.modal{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.52);padding:12px;overflow:auto}.modal-box{max-width:520px;margin:15px auto;background:#fff;border-radius:20px;padding:17px}.modal-title{font-size:19px;font-weight:800;margin-bottom:14px}.form-group{margin-bottom:11px}.form-group label{display:block;font-size:12px;font-weight:bold;margin-bottom:5px}.form-group input{width:100%;padding:11px;border:1px solid #d7dfdb;border-radius:10px;outline:none;font-size:14px}.save{width:100%;border:0;border-radius:10px;background:var(--green);color:#fff;padding:12px;font-weight:bold;font-size:14px}.cancel{width:100%;border:0;border-radius:10px;background:#edf0ef;color:#333;padding:11px;margin-top:7px}.info-box{background:#eef7f3;border-radius:11px;padding:11px;font-size:12px;line-height:1.7;margin-bottom:12px}.file-input{width:100%;border:1px dashed #aebbb5;padding:10px;border-radius:10px}.footer{text-align:center;color:#89958f;font-size:10px;margin-top:18px}
+@media(max-width:420px){.customer-name{font-size:15px}.stat-number{font-size:21px}.card-buttons button{font-size:9px}.reminder-buttons{flex-direction:column;align-items:stretch}.sms-small,.sms-done-small,.sms-back-small,.copy-small{font-size:9px;padding:8px 6px}}
+</style>
+</head>
+<body>
+<div class="header"><div class="header-inner"><div class="logo">⚡</div><div><h1>নুরুল স্টোর</h1><p>বিদ্যুৎ বিল ম্যানেজমেন্ট</p></div></div></div>
+<div class="container">
+<div class="month-card"><div class="month-title">📅 যে মাসের বিলের হিসাব দেখছেন</div><input type="month" id="monthPicker" onchange="changeMonth()"></div>
+<div class="dashboard">
+<div class="stat total" onclick="showTab('all')"><div class="stat-icon">👥</div><div class="stat-number" id="totalCount">0</div><div class="stat-title">মোট কাস্টমার</div></div>
+<div class="stat paid" onclick="showTab('paid')"><div class="stat-icon">✅</div><div class="stat-number" id="paidCount">0</div><div class="stat-title">বিল দিয়েছে</div></div>
+<div class="stat unpaid" onclick="showTab('unpaid')"><div class="stat-icon">❌</div><div class="stat-number" id="unpaidCount">0</div><div class="stat-title">বিল দেয়নি</div></div>
+</div>
+<div class="customer-type">
+<div class="type-card regular" onclick="showTab('regular')"><div class="type-number" id="regularCount">0</div><div class="type-title">🟢 নিয়মিত</div></div>
+<div class="type-card irregular" onclick="showTab('irregular')"><div class="type-number" id="irregularCount">0</div><div class="type-title">🟡 অনিয়মিত</div></div>
+<div class="type-card new" onclick="showTab('new')"><div class="type-number" id="newCount">0</div><div class="type-title">🔴 নতুন</div></div>
+</div>
+<div class="reminder"><div class="reminder-head"><div><div class="reminder-title">🔔 SMS Reminder</div><div class="reminder-sub" id="reminderSub">শেষ তারিখের ১–৫ দিন আগে যাদের SMS দিতে হবে তারা এখানে দেখাবে।</div></div><div class="reminder-count" id="reminderCount">0</div></div><div class="reminder-list" id="reminderList"></div><div class="sent-section" id="sentSection"><div class="sent-title">📨 SMS দেওয়া হয়েছে</div><div id="sentList"></div></div></div>
+<div class="actions"><button class="action add" onclick="openAddModal()">➕ কাস্টমার যোগ</button><button class="action backup" onclick="downloadBackup()">📥 Backup Download</button><button class="action restore" onclick="openRestore()">📤 Backup Restore</button><button class="action excel" onclick="exportCSV()">📊 Excel Export</button><button class="action trash" onclick="openTrash()">🗑️ Deleted Customers</button></div>
+<div class="search"><input type="text" id="search" placeholder="🔍 গ্রাহক নম্বর / নাম / মোবাইল খুঁজুন" oninput="render()"></div>
+<div class="tabs"><button class="tab active" id="tabAll" onclick="showTab('all')">সব</button><button class="tab" id="tabPaid" onclick="showTab('paid')">দিয়েছে</button><button class="tab" id="tabUnpaid" onclick="showTab('unpaid')">দেয়নি</button><button class="tab" id="tabRegular" onclick="showTab('regular')">নিয়মিত</button><button class="tab" id="tabIrregular" onclick="showTab('irregular')">অনিয়মিত</button><button class="tab" id="tabNew" onclick="showTab('new')">নতুন</button></div>
+<div id="customerList"></div><div class="footer">Nurul Store • Bill Manager</div>
+</div>
+
+<div class="modal" id="customerModal"><div class="modal-box"><div class="modal-title" id="modalTitle">➕ নতুন কাস্টমার</div><div class="form-group"><label>গ্রাহক নম্বর *</label><input id="customerNumber" type="text" inputmode="numeric"></div><div class="form-group"><label>গ্রাহকের নাম *</label><input id="customerName" type="text"></div><div class="form-group"><label>মোবাইল নম্বর *</label><input id="customerMobile" type="tel" inputmode="tel"></div><div class="form-group"><label>মিটারের ঠিকানা *</label><input id="customerAddress" type="text" placeholder="যেমন: হাসপাতাল রোড, কোটচাঁদপুর"></div><div class="form-group"><label>এই মাসের বিল পরিশোধের শেষ তারিখ *</label><input id="dueDate" type="date"></div><button class="save" onclick="saveCustomer()">💾 সেভ করুন</button><button class="cancel" onclick="closeCustomerModal()">বাতিল</button></div></div>
+<div class="modal" id="trashModal"><div class="modal-box"><div class="modal-title">🗑️ Deleted Customers</div><div class="info-box">ডিলেট করা কাস্টমার এখানে নিরাপদে থাকবে। এখান থেকে <b>Restore</b> করলে আবার মূল তালিকায় ফিরে আসবে। <b>Permanently Delete</b> করলে আর ফিরিয়ে আনা যাবে না।</div><div id="trashList"></div><button class="cancel" onclick="closeTrash()">বন্ধ করুন</button></div></div>
+<div class="modal" id="restoreModal"><div class="modal-box"><div class="modal-title">📤 Backup Restore</div><div class="info-box">আপনার আগে Download করা <b>Nurul Store Backup</b> ফাইল নির্বাচন করুন।<br><br>একই গ্রাহক নম্বর থাকলে পুরোনো তথ্যের সঙ্গে নতুন তথ্য Merge হবে।</div><input class="file-input" type="file" id="backupFile" accept=".json"><button class="save" style="margin-top:10px" onclick="restoreBackup()">🔄 Restore করুন</button><button class="cancel" onclick="closeRestore()">বাতিল</button></div></div>
+
+<script>
+let customers=JSON.parse(localStorage.getItem("nurulStoreCustomers"))||[];
+let deletedCustomers=JSON.parse(localStorage.getItem("nurulStoreDeletedCustomers"))||[];
+let selectedMonth=localStorage.getItem("nurulStoreMonth")||getCurrentMonth();
+let currentTab="all",editingId=null;
+customers.forEach(c=>{if(!c.payments)c.payments={};if(!c.dueDates)c.dueDates={};if(!c.smsSent)c.smsSent={};if(c.dueDate&&!c.dueDates[selectedMonth])c.dueDates[selectedMonth]=c.dueDate;});
+saveDatabase();document.getElementById("monthPicker").value=selectedMonth;render();
+function getCurrentMonth(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+function saveDatabase(){localStorage.setItem("nurulStoreCustomers",JSON.stringify(customers));localStorage.setItem("nurulStoreDeletedCustomers",JSON.stringify(deletedCustomers))}
+function changeMonth(){selectedMonth=document.getElementById("monthPicker").value;localStorage.setItem("nurulStoreMonth",selectedMonth);render()}
+function isPaid(c){return !!(c.payments&&c.payments[selectedMonth])}
+function getDueDate(c){
+  // প্রতিটি কাস্টমারের বিলের "দিন" (যেমন 15) একই থাকবে।
+  // মাস/বছর বদলালে শুধু মাস ও বছর selectedMonth অনুযায়ী বদলাবে।
+  if(c.dueDates&&c.dueDates[selectedMonth]) return c.dueDates[selectedMonth];
+  let source="";
+  if(c.dueDates){
+    const keys=Object.keys(c.dueDates).filter(k=>c.dueDates[k]).sort();
+    if(keys.length) source=c.dueDates[keys[0]];
+  }
+  if(!source&&c.dueDate) source=c.dueDate;
+  if(!source) return "";
+  const day=parseInt(String(source).split("-")[2],10);
+  if(!day||!selectedMonth) return "";
+  const p=selectedMonth.split("-");
+  const y=parseInt(p[0],10), m=parseInt(p[1],10);
+  // মাসে যত দিন আছে, তার বেশি হলে মাসের শেষ দিন ব্যবহার হবে।
+  const lastDay=new Date(y,m,0).getDate();
+  const d=Math.min(day,lastDay);
+  const derived=selectedMonth+"-"+String(d).padStart(2,"0");
+  // এই মাসের তারিখটি সংরক্ষণ করি, যাতে পরে আবার একইভাবে পাওয়া যায়।
+  c.dueDates=c.dueDates||{};
+  c.dueDates[selectedMonth]=derived;
+  return derived;
+}
+function isSmsSent(c){return !!(c.smsSent&&c.smsSent[selectedMonth])}
+function getSmsSentDate(c){return c.smsSent&&c.smsSent[selectedMonth]?c.smsSent[selectedMonth]:""}
+function markSmsComplete(id){const c=customers.find(x=>x.id===id);if(!c)return;if(!c.smsSent)c.smsSent={};c.smsSent[selectedMonth]=new Date().toLocaleDateString("en-GB");saveDatabase();render()}
+function undoSmsComplete(id){const c=customers.find(x=>x.id===id);if(!c)return;if(!confirm("এই গ্রাহকের SMS সম্পূর্ণ করার স্ট্যাটাস বাতিল করবেন?"))return;if(c.smsSent)delete c.smsSent[selectedMonth];saveDatabase();render()}
+function copyNumber(id){const c=customers.find(x=>x.id===id);if(!c)return;const num=String(c.mobile);if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(num).then(()=>alert("📋 মোবাইল নাম্বার কপি হয়েছে:\n"+num)).catch(()=>fallbackCopy(num))}else fallbackCopy(num)}
+function fallbackCopy(text){const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand("copy");alert("📋 মোবাইল নাম্বার কপি হয়েছে:\n"+text)}catch(e){alert("নাম্বারটি কপি করা যায়নি।\n"+text)}document.body.removeChild(ta)}
+function formatDate(date){if(!date)return "";const p=date.split("-");return p.length===3?p[2]+"/"+p[1]+"/"+p[0]:date}
+function monthName(month){if(!month)return "";const p=month.split("-"),n=["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];return n[parseInt(p[1])-1]+" "+p[0]}
+function getFiltered(){const v=document.getElementById("search").value.toLowerCase().trim();return customers.filter(c=>String(c.number).toLowerCase().includes(v)||String(c.name).toLowerCase().includes(v)||String(c.mobile).toLowerCase().includes(v)||String(c.address||"").toLowerCase().includes(v))}
+function getLastThreeMonths(base){const p=base.split("-");let y=+p[0],m=+p[1],r=[];for(let i=0;i<3;i++){let mm=m-i,yy=y;while(mm<=0){mm+=12;yy--}r.push(yy+"-"+String(mm).padStart(2,"0"))}return r}
+function getCustomerType(c){const p=c.payments||{},r=getLastThreeMonths(selectedMonth);let count=r.filter(m=>p[m]).length;if(count>=2)return"regular";if(count===1)return"irregular";if(Object.keys(p).length>0)return"irregular";return"new"}
+function typeText(t){return t==="regular"?"🟢 নিয়মিত":t==="irregular"?"🟡 অনিয়মিত":"🔴 নতুন"}
+function typeClass(t){return t==="regular"?"badge-regular":t==="irregular"?"badge-irregular":"badge-new"}
+function render(){
+const filtered=getFiltered(),paid=customers.filter(isPaid).length;document.getElementById("totalCount").innerText=customers.length;document.getElementById("paidCount").innerText=paid;document.getElementById("unpaidCount").innerText=customers.length-paid;
+let reg=0,irr=0,nw=0;customers.forEach(c=>{const t=getCustomerType(c);if(t==="regular")reg++;else if(t==="irregular")irr++;else nw++});document.getElementById("regularCount").innerText=reg;document.getElementById("irregularCount").innerText=irr;document.getElementById("newCount").innerText=nw;
+let list=currentTab==="none"?[]:filtered;if(currentTab==="paid")list=filtered.filter(isPaid);if(currentTab==="unpaid")list=filtered.filter(c=>!isPaid(c));if(["regular","irregular","new"].includes(currentTab))list=filtered.filter(c=>getCustomerType(c)===currentTab);
+let html="";if(!list.length){html='<div class="empty"><div class="empty-icon">📭</div><div>কোনো কাস্টমার পাওয়া যায়নি</div></div>'}else list.forEach(c=>{const paid=isPaid(c),due=getDueDate(c),overdue=!paid&&due&&isOverdue(due),sc=paid?"status-paid":overdue?"status-overdue":"status-unpaid",st=paid?"✅ বিল পরিশোধ করেছে":overdue?"⚠️ শেষ তারিখ পার হয়েছে":"❌ বিল পরিশোধ করেনি",t=getCustomerType(c),pd=paid?c.payments[selectedMonth]:"";html+=`<div class="customer"><div class="customer-top"><div><div class="customer-name">${escapeHtml(c.name)}</div><div class="customer-number">গ্রাহক নম্বর: ${escapeHtml(c.number)}</div></div><div class="type-badge ${typeClass(t)}">${typeText(t)}</div></div><div class="info">📱 মোবাইল: <b>${escapeHtml(c.mobile)}</b><br>📍 মিটারের ঠিকানা: <b>${escapeHtml(c.address||"দেওয়া হয়নি")}</b><br>📅 শেষ তারিখ: <b>${due?formatDate(due):"দেওয়া হয়নি"}</b>${paid?`<br>💰 পরিশোধের তারিখ: <b>${pd}</b>`:""}</div><div class="status ${sc}">${st}</div><div class="card-buttons">${paid?`<button class="pay" onclick="undoPayment(${c.id})">↩ বাতিল</button>`:`<button class="pay" onclick="markPaid(${c.id})">✅ বিল দিয়েছে</button>`}<button class="sms" onclick="sendSMS(${c.id})">📩 SMS</button><button class="edit" onclick="editCustomer(${c.id})">✏️ Edit</button><button class="delete" onclick="deleteCustomer(${c.id})">🗑️ Delete</button></div>${Object.keys(c.payments||{}).length?`<div class="history"><div class="history-title">📚 বিল পরিশোধের ইতিহাস</div>${getHistory(c)}</div>`:""}</div>`});
+document.getElementById("customerList").innerHTML=html;renderReminder()
+}
+function renderReminder(){
+const today=new Date();today.setHours(0,0,0,0);
+const pending=customers.filter(c=>{if(isPaid(c)||isSmsSent(c))return false;const d=getDueDate(c);if(!d)return false;const due=new Date(d+"T00:00:00"),diff=Math.round((due-today)/86400000);return diff>=1&&diff<=5});
+const sent=customers.filter(isSmsSent);document.getElementById("reminderCount").innerText=pending.length;const sub=document.getElementById("reminderSub"),list=document.getElementById("reminderList");
+if(!pending.length){sub.innerText="শেষ তারিখের ১–৫ দিনের মধ্যে কোনো বকেয়া SMS নেই।";list.innerHTML=""}else{sub.innerText="শেষ তারিখের ১–৫ দিন আগে থাকা বকেয়া গ্রাহকদের SMS দিন।";list.innerHTML=pending.map(c=>{const d=getDueDate(c),days=Math.round((new Date(d+"T00:00:00")-today)/86400000);return `<div class="reminder-item"><div><div class="reminder-name">${escapeHtml(c.name)}</div><div class="reminder-info">📱 ${escapeHtml(c.mobile)}<br>শেষ তারিখ: ${formatDate(d)} • আর ${days} দিন</div></div><div class="reminder-buttons"><button class="copy-small" onclick="copyNumber(${c.id})">📋 নাম্বার কপি</button><button class="sms-small" onclick="sendSMS(${c.id})">📩 SMS</button><button class="sms-done-small" onclick="markSmsComplete(${c.id})">✅ SMS সম্পূর্ণ</button></div></div>`}).join("")}
+const ss=document.getElementById("sentSection"),sl=document.getElementById("sentList");if(!sent.length){ss.style.display="none";sl.innerHTML=""}else{ss.style.display="block";sl.innerHTML=sent.map(c=>`<div class="sent-item"><div><div class="sent-name">${escapeHtml(c.name)}</div><div class="sent-info">📱 ${escapeHtml(c.mobile)}<br>📅 SMS দেওয়া হয়েছে: ${getSmsSentDate(c)}</div></div><button class="sms-back-small" onclick="undoSmsComplete(${c.id})">↩ আবার Pending</button></div>`).join("")}
+}
+function isOverdue(d){if(!d)return false;return new Date()>new Date(d+"T23:59:59")}
+function getHistory(c){return Object.keys(c.payments||{}).sort().reverse().map(m=>`<div class="history-item"><span>${monthName(m)}</span><b>${c.payments[m]}</b></div>`).join("")}
+function showTab(tab){
+  const map={all:"tabAll",paid:"tabPaid",unpaid:"tabUnpaid",regular:"tabRegular",irregular:"tabIrregular",new:"tabNew"};
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+  if(currentTab===tab){
+    currentTab="none";
+  }else{
+    currentTab=tab;
+    document.getElementById(map[tab]).classList.add("active");
+  }
+  render();
+}
+function openAddModal(){editingId=null;document.getElementById("modalTitle").innerText="➕ নতুন কাস্টমার";clearForm();document.getElementById("customerModal").style.display="block"}
+function clearForm(){["customerNumber","customerName","customerMobile","customerAddress","dueDate"].forEach(id=>document.getElementById(id).value="")}
+function closeCustomerModal(){document.getElementById("customerModal").style.display="none";clearForm();editingId=null}
+function saveCustomer(){
+const number=document.getElementById("customerNumber").value.trim(),name=document.getElementById("customerName").value.trim(),mobile=document.getElementById("customerMobile").value.trim(),address=document.getElementById("customerAddress").value.trim(),due=document.getElementById("dueDate").value;if(!number||!name||!mobile||!address||!due)return alert("⚠️ সব তথ্য পূরণ করুন।");if(!/^01\d{9}$/.test(mobile))return alert("⚠️ সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।");
+if(editingId!==null){const c=customers.find(x=>x.id===editingId);if(!c)return;const dup=customers.some(x=>x.id!==editingId&&String(x.number)===String(number));if(dup)return alert("⚠️ এই গ্রাহক নম্বর ইতিমধ্যে আছে।");c.number=number;c.name=name;c.mobile=mobile;c.address=address;c.dueDates=c.dueDates||{};c.dueDates[selectedMonth]=due;saveDatabase();closeCustomerModal();render();return alert("✅ কাস্টমারের তথ্য আপডেট হয়েছে।")}
+if(customers.some(c=>String(c.number)===String(number)))return alert("⚠️ এই গ্রাহক নম্বরটি ইতিমধ্যে সেভ করা আছে।");customers.push({id:Date.now(),number,name,mobile,address,dueDates:{[selectedMonth]:due},payments:{},smsSent:{},createdAt:new Date().toISOString()});saveDatabase();closeCustomerModal();render();alert("✅ কাস্টমার সফলভাবে সেভ হয়েছে।")
+}
+function editCustomer(id){const c=customers.find(x=>x.id===id);if(!c)return;editingId=id;document.getElementById("modalTitle").innerText="✏️ কাস্টমার Edit";document.getElementById("customerNumber").value=c.number;document.getElementById("customerName").value=c.name;document.getElementById("customerMobile").value=c.mobile;document.getElementById("customerAddress").value=c.address||"";document.getElementById("dueDate").value=getDueDate(c);document.getElementById("customerModal").style.display="block"}
+function deleteCustomer(id){
+const c=customers.find(x=>x.id===id);
+if(!c)return;
+if(!confirm("⚠️ "+c.name+" কে Deleted Customers-এ পাঠাবেন?\n\nকাস্টমারের বিলের ইতিহাস ও অন্যান্য তথ্য নিরাপদে থাকবে এবং পরে Restore করা যাবে।"))return;
+customers=customers.filter(x=>x.id!==id);
+deletedCustomers.unshift({...c,deletedAt:new Date().toISOString()});
+saveDatabase();render();
+alert("✅ কাস্টমারটি Deleted Customers-এ রাখা হয়েছে।\n\nচাইলে পরে Restore করতে পারবেন।");
+}
+function openTrash(){renderTrash();document.getElementById("trashModal").style.display="block"}
+function closeTrash(){document.getElementById("trashModal").style.display="none"}
+function renderTrash(){
+const box=document.getElementById("trashList");
+if(!deletedCustomers.length){box.innerHTML='<div class="empty"><div class="empty-icon">🗑️</div><div>Deleted Customers খালি</div></div>';return}
+box.innerHTML=deletedCustomers.map(c=>`<div class="trash-item"><div class="trash-name">${escapeHtml(c.name)}</div><div class="trash-info">গ্রাহক নম্বর: ${escapeHtml(c.number)}<br>📱 ${escapeHtml(c.mobile)}<br>📍 ${escapeHtml(c.address||"দেওয়া হয়নি")}<br>ডিলেট করা হয়েছে: ${c.deletedAt?new Date(c.deletedAt).toLocaleDateString("en-GB"):""}</div><div class="trash-actions"><button class="restore-one" onclick="restoreCustomer(${c.id})">♻️ Restore</button><button class="permanent-delete" onclick="permanentlyDeleteCustomer(${c.id})">🗑️ Permanently Delete</button></div></div>`).join("")
+}
+function restoreCustomer(id){
+const index=deletedCustomers.findIndex(x=>x.id===id);if(index<0)return;
+const c=deletedCustomers[index];
+if(customers.some(x=>String(x.number)===String(c.number)))return alert("⚠️ এই গ্রাহক নম্বরটি বর্তমানে মূল তালিকায় আছে। আগে সেটি পরীক্ষা করুন।");
+if(!confirm("♻️ "+c.name+" কে আবার মূল কাস্টমার তালিকায় ফিরিয়ে আনবেন?"))return;
+deletedCustomers.splice(index,1);delete c.deletedAt;customers.push(c);saveDatabase();renderTrash();render();alert("✅ কাস্টমারটি Restore হয়েছে।")
+}
+function permanentlyDeleteCustomer(id){
+const c=deletedCustomers.find(x=>x.id===id);if(!c)return;
+if(!confirm("⚠️ সতর্কতা\n\n"+c.name+" এবং তার সব বিলের ইতিহাস, SMS History ও অন্যান্য তথ্য স্থায়ীভাবে মুছে যাবে।\n\nএই কাজটি আর Undo করা যাবে না।\n\nস্থায়ীভাবে মুছে ফেলবেন?"))return;
+deletedCustomers=deletedCustomers.filter(x=>x.id!==id);saveDatabase();renderTrash();alert("🗑️ কাস্টমারটি স্থায়ীভাবে মুছে ফেলা হয়েছে।")
+}
+function markPaid(id){const c=customers.find(x=>x.id===id);if(!c)return;c.payments=c.payments||{};c.payments[selectedMonth]=new Date().toLocaleDateString("en-GB");saveDatabase();render()}
+function undoPayment(id){const c=customers.find(x=>x.id===id);if(!c)return;if(!confirm("এই মাসের বিলের পরিশোধ বাতিল করবেন?"))return;delete c.payments[selectedMonth];saveDatabase();render()}
+function sendSMS(id){const c=customers.find(x=>x.id===id);if(!c)return;const message=`চার্জ ফ্রি বিদ্যুৎ বিল পরিশোধের সুবিধা\n\nনুরুল স্টোর\nহাসপাতাল রোড, কোটচাঁদপুর, ঝিনাইদহ\nমোঃ ফাহাদ ইসলাম\nমোবাইল: 01919402802\n\nশেষ তারিখের আগেই আপনার বিদ্যুৎ বিল পরিশোধ করুন।`;window.location.href="sms:"+c.mobile+"?body="+encodeURIComponent(message)}
+function downloadBackup(){if(!customers.length)return alert("⚠️ Backup করার মতো কোনো কাস্টমার নেই.");const b={app:"Nurul Store Bill Manager",version:"4.2",backupDate:new Date().toISOString(),selectedMonth,customers,deletedCustomers},blob=new Blob([JSON.stringify(b,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Nurul_Store_Backup_"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);alert("✅ Backup Download হয়েছে।\n\n"+customers.length+" জন কাস্টমারের সম্পূর্ণ তথ্য সংরক্ষণ করা হয়েছে।")}
+function openRestore(){document.getElementById("restoreModal").style.display="block"}function closeRestore(){document.getElementById("restoreModal").style.display="none";document.getElementById("backupFile").value=""}
+function restoreBackup(){const input=document.getElementById("backupFile");if(!input.files.length)return alert("⚠️ প্রথমে Backup ফাইল নির্বাচন করুন.");const r=new FileReader();r.onload=e=>{try{const b=JSON.parse(e.target.result);if(!Array.isArray(b.customers))throw 0;if(!confirm("Backup-এ "+b.customers.length+" জন কাস্টমার আছে.\n\nবর্তমান ডেটার সঙ্গে Merge করবেন?"))return;let added=0,updated=0;b.customers.forEach(x=>{const ex=customers.find(c=>String(c.number)===String(x.number));if(ex){ex.name=x.name||ex.name;ex.mobile=x.mobile||ex.mobile;ex.address=x.address||ex.address||"";ex.payments=ex.payments||{};ex.dueDates=ex.dueDates||{};ex.smsSent=ex.smsSent||{};Object.assign(ex.payments,x.payments||{});Object.assign(ex.dueDates,x.dueDates||{});Object.assign(ex.smsSent,x.smsSent||{});if(x.dueDate&&!ex.dueDates[selectedMonth])ex.dueDates[selectedMonth]=x.dueDate;updated++}else{ x.payments=x.payments||{};x.dueDates=x.dueDates||{};x.smsSent=x.smsSent||{};if(x.dueDate&&!x.dueDates[selectedMonth])x.dueDates[selectedMonth]=x.dueDate;customers.push(x);added++}});if(Array.isArray(b.deletedCustomers)){b.deletedCustomers.forEach(x=>{if(!deletedCustomers.some(d=>String(d.id)===String(x.id))&&!customers.some(c=>String(c.number)===String(x.number)))deletedCustomers.push(x)})}if(b.selectedMonth){selectedMonth=b.selectedMonth;document.getElementById("monthPicker").value=selectedMonth}saveDatabase();closeRestore();render();alert("✅ Restore সম্পন্ন হয়েছে!\n\nনতুন কাস্টমার: "+added+"\nআপডেট হয়েছে: "+updated)}catch(err){alert("❌ Backup ফাইলটি সঠিক নয়.")}};r.readAsText(input.files[0])}
+function exportCSV(){if(!customers.length)return alert("⚠️ Export করার মতো কোনো কাস্টমার নেই.");const rows=[["গ্রাহক নম্বর","গ্রাহকের নাম","মোবাইল নম্বর","মিটারের ঠিকানা","বিলের শেষ তারিখ","Customer Type","মাস","বিল দিয়েছে?","পরিশোধের তারিখ","SMS দেওয়া হয়েছে?","SMS দেওয়ার তারিখ"]];customers.forEach(c=>{const p=isPaid(c),s=isSmsSent(c);rows.push([c.number,c.name,c.mobile,c.address||"",formatDate(getDueDate(c)),typeText(getCustomerType(c)),monthName(selectedMonth),p?"হ্যাঁ":"না",p?c.payments[selectedMonth]:"",s?"হ্যাঁ":"না",s?getSmsSentDate(c):""])});const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n"),blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Nurul_Store_Bill_"+selectedMonth+".csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);alert("✅ Excel-compatible ফাইল তৈরি হয়েছে।")}
+function escapeHtml(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+window.onclick=e=>{if(e.target===document.getElementById("customerModal"))closeCustomerModal();if(e.target===document.getElementById("restoreModal"))closeRestore();if(e.target===document.getElementById("trashModal"))closeTrash()}
+</script>
+</body>
+</html>
